@@ -6,8 +6,6 @@ from langchain_ollama import OllamaEmbeddings
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_ollama.llms import OllamaLLM
 
-
-
 st.markdown("""
     <style>
     .stApp {
@@ -74,8 +72,6 @@ Query: {user_query}
 Context: {document_context} 
 Answer:
 """
-
-
 PDF_STORAGE_PATH = 'document_store/pdfs/'
 EMBEDDING_MODEL = OllamaEmbeddings(model="deepseek-r1:1.5b")
 DOCUMENT_VECTOR_DB = InMemoryVectorStore(EMBEDDING_MODEL)
@@ -106,7 +102,6 @@ def index_documents(document_chunks):
 def find_related_documents(query):
     return DOCUMENT_VECTOR_DB.similarity_search(query)
 
-
 def generate_answer(user_query, context_documents):
     context_text = "\n\n".join([doc.page_content for doc in context_documents])
     conversation_prompt = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
@@ -117,7 +112,7 @@ def generate_answer(user_query, context_documents):
 # UI Configuration
 
 
-st.title("📘 DeepDoc AI")
+st.title("📘 DocuMind AI")
 st.markdown("### Your Intelligent Document Assistant")
 st.markdown("---")
 
