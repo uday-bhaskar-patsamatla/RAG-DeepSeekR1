@@ -89,6 +89,7 @@ def load_pdf_documents(file_path):
     return document_loader.load()
 
 def chunk_documents(raw_documents):
+    print("Chunking documents...")
     text_processor = RecursiveCharacterTextSplitter(
         chunk_size=1000,
         chunk_overlap=200,
@@ -97,12 +98,15 @@ def chunk_documents(raw_documents):
     return text_processor.split_documents(raw_documents)
 
 def index_documents(document_chunks):
+    print("Indexing documents...")
     DOCUMENT_VECTOR_DB.add_documents(document_chunks)
 
 def find_related_documents(query):
+    print("Finding related documents...")
     return DOCUMENT_VECTOR_DB.similarity_search(query)
 
 def generate_answer(user_query, context_documents):
+    print("Generating answer...")
     context_text = "\n\n".join([doc.page_content for doc in context_documents])
     conversation_prompt = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
     response_chain = conversation_prompt | LANGUAGE_MODEL
